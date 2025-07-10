@@ -39,28 +39,20 @@ Este proyecto permite a los usuarios crear y resolver laberintos numéricos úni
 ### Pasos de instalación
 
 1. **Clona el repositorio**:
-```bash
 git clone <url-del-repositorio>
 cd laberinto
-```
 
 2. **Crea un entorno virtual** (recomendado):
-```bash
 python -m venv venv
 source venv/bin/activate  # En Windows: venv\Scripts\activate
-```
 
 3. **Instala las dependencias**:
-```bash
 pip install -r requirements.txt
-```
 
 ## 🚀 Uso
 
 1. **Ejecuta la aplicación**:
-```bash
 python app.py
-```
 
 2. **Abre tu navegador** y ve a `http://localhost:5000`
 

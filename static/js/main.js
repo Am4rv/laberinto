@@ -2,7 +2,7 @@
   const form = document.getElementById("laberinto-form");
   const contenedor = document.getElementById("contenedor-matriz");
 
-  // 🎯 Generar matriz al hacer clic
+  // Generar matriz al hacer clic
   document.getElementById("generar-matriz")?.addEventListener("click", () => {
     const filas = parseInt(document.getElementById("num_filas").value, 10);
     const columnas = parseInt(document.getElementById("num_columnas").value, 10);
