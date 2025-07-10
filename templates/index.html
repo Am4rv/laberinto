@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block title %}Enigma del Laberinto{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <div class="card shadow p-4">
+    <h1 class="text-center mb-4 text-primary">🧩 Enigma del Laberinto Numérico</h1>
+
+    <!-- Instrucciones -->
+    <button class="btn btn-link mb-3 text-decoration-none" data-bs-toggle="collapse" data-bs-target="#instrucciones">
+      ℹ️ Mostrar instrucciones
+    </button>
+    <div class="collapse" id="instrucciones">
+      <div class="alert alert-secondary">
+        <p>1. El laberinto debe tener como máximo 10x10 celdas.</p>
+        <p>2. Puedes moverte solo en direcciones cardinales (no diagonales).</p>
+        <p>3. Solo puedes ir a una celda si su número es divisor exacto del número actual.</p>
+        <p>4. Las coordenadas comienzan en (0, 0).</p>
+      </div>
+    </div>
+
+    <!-- Formulario -->
+    <form method="POST" novalidate id="laberinto-form">
+      <!-- Tamaño de matriz -->
+      <div class="row mb-3">
+        <div class="col">
+          <label for="num_filas" class="form-label">Número de filas (máx. 10):</label>
+          <input type="number" class="form-control" id="num_filas" name="num_filas" min="1" max="10" 
+            value="{{ request.form.get('num_filas', '3') }}" required />
+        </div>
+        <div class="col">
+          <label for="num_columnas" class="form-label">Número de columnas (máx. 10):</label>
+          <input type="number" class="form-control" id="num_columnas" name="num_columnas" min="1" max="10"
+            value="{{ request.form.get('num_columnas', '3') }}" required />
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <button type="button" class="btn btn-outline-primary" id="generar-matriz">
+          <i class="bi bi-grid"></i> Generar matriz
+        </button>
+      </div>
+
+      <!-- Contenedor de la matriz -->
+      <div id="contenedor-matriz" class="mb-3 d-flex justify-content-center align-items-center"></div>
+
+      <!-- Coordenadas de inicio y fin -->
+      <div class="row mb-3">
+        <div class="col">
+          <label class="form-label">Fila inicio:</label>
+          <input type="number" class="form-control" name="fila_inicio" min="0"
+            value="{{ request.form.get('fila_inicio', '') }}" required />
+        </div>
+        <div class="col">
+          <label class="form-label">Columna inicio:</label>
+          <input type="number" class="form-control" name="columna_inicio" min="0"
+            value="{{ request.form.get('columna_inicio', '') }}" required />
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col">
+          <label class="form-label">Fila fin:</label>
+          <input type="number" class="form-control" name="fila_fin" min="0"
+            value="{{ request.form.get('fila_fin', '') }}" required />
+        </div>
+        <div class="col">
+          <label class="form-label">Columna fin:</label>
+          <input type="number" class="form-control" name="columna_fin" min="0"
+            value="{{ request.form.get('columna_fin', '') }}" required />
+        </div>
+      </div>
+
+      <!-- Matriz oculta para enviar -->
+      <input type="hidden" name="matriz" id="matriz" value="{{ matriz_texto|e }}" />
+
+      <!-- Botones -->
+      <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary">
+          <i class="bi bi-gear-fill"></i> Calcular ruta
+        </button>
+        <button type="button" class="btn btn-secondary" id="btn-reset">
+          <i class="bi bi-arrow-counterclockwise"></i> Resetear
+        </button>
+      </div>
+    </form>
+
+    <!-- Resultado -->
+    {% if resultado %}
+      <div class="alert alert-{{ 'success' if 'Ruta encontrada' in resultado else 'danger' }} mt-4" role="alert">
+        <strong>Resultado:</strong> {{ resultado }}
+      </div>
+    {% endif %}
+
+    <!-- Visualización de la matriz -->
+    {% if laberinto and ruta %}
+      <h3 class="mt-5">Visualización del Laberinto</h3>
+      <div class="laberinto-wrapper fade-in">
+        <table class="tabla-laberinto">
+          <tbody>
+            {% for fila in laberinto %}
+              {% set fila_idx = loop.index0 %}
+              <tr>
+                {% for val in fila %}
+                  {% set col_idx = loop.index0 %}
+                  {% set pos = (fila_idx, col_idx) %}
+                  {% set celda_clase = "celda-normal" %}
+                    {% if ruta %}
+                    {% if pos == ruta[0] %}
+                        {% set celda_clase = "celda-inicio" %}
+                    {% elif pos == ruta[-1] %}
+                        {% set celda_clase = "celda-fin" %}
+                    {% elif pos in ruta %}
+                        {% set celda_clase = "celda-ruta" %}
+                    {% endif %}
+                    {% endif %}
+
+                  <td class="{{ celda_clase }}" style="width: 50px; height: 50px;" title="({{ fila_idx }}, {{ col_idx }})">
+                    {{ val }}
+                    <br />
+                        {% if ruta and pos in ruta %}
+                        {% set idx = ruta.index(pos) %}
+                        {% if idx + 1 < ruta|length %}
+                            {% set next = ruta[idx + 1] %}
+                            {% if next[0] == fila_idx and next[1] == col_idx + 1 %}➡️{% endif %}
+                            {% if next[0] == fila_idx and next[1] == col_idx - 1 %}⬅️{% endif %}
+                            {% if next[0] == fila_idx + 1 and next[1] == col_idx %}⬇️{% endif %}
+                            {% if next[0] == fila_idx - 1 and next[1] == col_idx %}⬆️{% endif %}
+                        {% elif pos == ruta[-1] %}
+                            🎯
+                        {% endif %}
+                        {% elif pos == ruta[0] %}
+                        🚩
+                        {% endif %}
+                  </td>
+                {% endfor %}
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
