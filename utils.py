@@ -1,3 +1,9 @@
+"""
+Módulo para resolver laberintos numéricos usando búsqueda en profundidad (DFS).
+
+El algoritmo implementa la regla de movimiento donde solo puedes ir a una celda
+si el número actual es divisible por el número de la celda destino.
+"""
 def encontrar_ruta(laberinto, inicio, fin):
     filas = len(laberinto)
     columnas = len(laberinto[0]) if filas > 0 else 0
