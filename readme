@@ -1,0 +1,126 @@
+# 🧩 Enigma del Laberinto Numérico
+
+Una aplicación web interactiva desarrollada en Flask que resuelve laberintos numéricos mediante un algoritmo de búsqueda inteligente.
+
+## 🎯 Descripción
+
+Este proyecto permite a los usuarios crear y resolver laberintos numéricos únicos donde el movimiento entre celdas está regido por reglas matemáticas específicas. Solo puedes moverte a una celda adyacente si el número actual es divisible exactamente por el número de la celda destino.
+
+## ✨ Características
+
+- **Interfaz web interactiva** con Bootstrap 5
+- **Generador de matrices dinámico** hasta 10x10
+- **Algoritmo de búsqueda DFS** (Depth-First Search) optimizado
+- **Visualización en tiempo real** de la ruta encontrada
+- **Validación robusta** de entrada de datos
+- **Diseño responsive** y moderno
+- **Animaciones suaves** para mejor experiencia de usuario
+
+## 🎮 Reglas del Juego
+
+1. **Tamaño máximo**: 10x10 celdas
+2. **Movimiento**: Solo en direcciones cardinales (arriba, abajo, izquierda, derecha)
+3. **Condición de movimiento**: Solo puedes ir a una celda si el número actual es divisible por el número de la celda destino (actual % destino == 0)
+4. **Coordenadas**: Comienzan en (0, 0) en la esquina superior izquierda
+
+## 🛠️ Tecnologías Utilizadas
+
+- **Backend**: Python 3.x + Flask
+- **Frontend**: HTML5, CSS3, JavaScript (ES6+)
+- **Styling**: Bootstrap 5
+- **Algoritmo**: Búsqueda en profundidad (DFS) con backtracking
+
+## 📦 Instalación
+
+### Prerrequisitos
+- Python 3.7 o superior
+- pip (gestor de paquetes de Python)
+
+### Pasos de instalación
+
+1. **Clona el repositorio**:
+```bash
+git clone <url-del-repositorio>
+cd laberinto
+```
+
+2. **Crea un entorno virtual** (recomendado):
+```bash
+python -m venv venv
+source venv/bin/activate  # En Windows: venv\Scripts\activate
+```
+
+3. **Instala las dependencias**:
+```bash
+pip install -r requirements.txt
+```
+
+## 🚀 Uso
+
+1. **Ejecuta la aplicación**:
+```bash
+python app.py
+```
+
+2. **Abre tu navegador** y ve a `http://localhost:5000`
+
+3. **Crea tu laberinto**:
+   - Especifica el número de filas y columnas
+   - Haz clic en "Generar matriz"
+   - Llena cada celda con números enteros positivos
+
+4. **Define puntos de inicio y fin**:
+   - Ingresa las coordenadas del punto de inicio
+   - Ingresa las coordenadas del punto final
+
+5. **Resuelve el laberinto**:
+   - Haz clic en "Resolver laberinto"
+   - Observa la ruta encontrada resaltada en verde
+
+## 📁 Estructura del Proyecto
+
+```
+laberinto/
+├── app.py              # Aplicación principal Flask
+├── utils.py            # Algoritmo de búsqueda de rutas
+├── requirements.txt    # Dependencias del proyecto
+├── readme             # Este archivo
+├── static/
+│   ├── css/
+│   │   └── styles.css  # Estilos personalizados
+│   └── js/
+│       └── main.js     # Lógica JavaScript del frontend
+└── templates/
+    ├── base.html       # Plantilla base
+    ├── header.html     # Componente del header
+    ├── index.html      # Página principal
+    └── json.json       # Archivo de configuración JSON
+```
+
+## 🔍 Algoritmo
+
+El proyecto utiliza un algoritmo de **Búsqueda en Profundidad (DFS)** con las siguientes características:
+
+- **Backtracking**: Retrocede cuando no encuentra solución
+- **Optimización**: Marca celdas visitadas para evitar ciclos
+- **Condición de movimiento**: Valida la regla matemática (actual % destino == 0)
+- **Complejidad**: O(4^(n*m)) en el peor caso, donde n y m son las dimensiones
+
+## 📝 Ejemplos
+
+### Ejemplo de matriz válida:
+```
+12  6  3
+4   2  1
+8   4  2
+```
+
+Con inicio en (0,0) y fin en (2,2), una posible ruta sería:
+(0,0) → (1,0) → (2,0) → (2,1) → (2,2)
+
+## 👨‍💻 Autor
+
+Desarrollado con ❤️ por Amaru
+
+---
+⭐ Si te gusta este proyecto, ¡dale una estrella!
