@@ -52,7 +52,7 @@ def index():
         except Exception as e:
             resultado = f"⚠️ Error inesperado: {str(e)}"
 
-    # En GET o después del POST, renderizar la plantilla con variables definidas
+
     return render_template("index.html", resultado=resultado, laberinto=laberinto, ruta=ruta, matriz_texto=matriz_texto)
 
 if __name__ == "__main__":

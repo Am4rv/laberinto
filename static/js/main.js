@@ -21,11 +21,11 @@
 
     contenedor.innerHTML = "";
 
-    // 📦 Contenedor externo para centrar
+    //  Contenedor externo para centrar
     const wrapperExterno = document.createElement("div");
     wrapperExterno.classList.add("w-100", "d-flex", "justify-content-center");
 
-    // 📦 Contenedor interno para estilo visual
+    //  Contenedor interno para estilo visual
     const tablaWrapper = document.createElement("div");
     tablaWrapper.classList.add("bg-light", "p-3", "rounded", "border", "fade-in");
     tablaWrapper.style.width = "100%";
@@ -33,7 +33,7 @@
     tablaWrapper.style.display = "flex";
     tablaWrapper.style.justifyContent = "center";
 
-    // 🧱 Tabla de inputs
+    //  Tabla de inputs
     const table = document.createElement("table");
     table.classList.add("table", "table-bordered", "bg-white", "shadow-sm");
     table.style.textAlign = "center";
@@ -63,7 +63,7 @@
     contenedor.appendChild(wrapperExterno);
   });
 
-  // ✅ Armar el string de la matriz antes de enviar
+  //  Armar el string de la matriz antes de enviar
   form?.addEventListener("submit", (event) => {
     const filas = parseInt(document.getElementById("num_filas").value, 10);
     const columnas = parseInt(document.getElementById("num_columnas").value, 10);
@@ -92,13 +92,13 @@
     }
   });
 
-  // 🔁 Botón reset
+  //  Botón reset
   document.getElementById("btn-reset")?.addEventListener("click", () => {
     window.location.href = "/";
   });
 
 
-  // 🧠 Reconstruir visualmente desde el input oculto
+  // Reconstruir visualmente desde el input oculto
   window.addEventListener("DOMContentLoaded", () => {
     const matrizTexto = document.getElementById("matriz").value.trim();
     if (matrizTexto) {
@@ -122,7 +122,7 @@
       }, 50);
     }
   });
-    // 💾 Guardar laberinto en archivo .txt
+    //  Guardar laberinto en archivo .txt
   document.getElementById("btn-guardar")?.addEventListener("click", () => {
     const matrizTexto = document.getElementById("matriz").value.trim();
     if (!matrizTexto) {
@@ -138,7 +138,7 @@
     URL.revokeObjectURL(enlace.href);
   });
 
-  // 📂 Cargar archivo de laberinto
+  //  Cargar archivo de laberinto
   document.getElementById("input-cargar")?.addEventListener("change", (e) => {
     const archivo = e.target.files[0];
     if (!archivo) return;
