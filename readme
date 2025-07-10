@@ -112,7 +112,7 @@ El proyecto utiliza un algoritmo de **Búsqueda en Profundidad (DFS)** con las s
 ```
 12  6  3
 4   2  1
-8   4  2
+4   4  2
 ```
 
 Con inicio en (0,0) y fin en (2,2), una posible ruta sería:
