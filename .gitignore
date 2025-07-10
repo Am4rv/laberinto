@@ -55,6 +55,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+venv
 
 # macOS
 .DS_Store
